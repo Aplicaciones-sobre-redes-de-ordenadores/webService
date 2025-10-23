@@ -1,0 +1,9 @@
+type NewsArticle {
+  title: String
+  description: String
+  url: String
+}
+
+type Query {
+  news(country: String!): [NewsArticle]
+}
