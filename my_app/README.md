@@ -14,3 +14,32 @@ The React Compiler is not enabled on this template because of its impact on dev 
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+
+**Github**: https://github.com/PaulleDemon/awesome-landing-pages
+
+## Usage
+
+* This template uses tailwind css every tailwind class are prefixed with `tw-`, to help differentiate
+  between tailwind classes and other classes  
+
+During development add the following to head tag
+
+```html
+<link rel="stylesheet" href="tailwind-runtime.css"><!--replace with path to your tailwind runtime-->
+```
+During production use
+
+```html
+<link rel="stylesheet" href="tailwind-build.css"><!--replace with path to your tailwind build-->
+```
+
+To start Tailwind during development use
+```html
+npm run start:tailwind
+```
+
+To create a build file use
+```html
+npm run build:tailwind
+```
