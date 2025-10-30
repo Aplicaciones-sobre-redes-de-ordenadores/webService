@@ -1,30 +1,34 @@
 {
-  "name": "my_app",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "name": "landing-pages",
+  "version": "1.0.0",
+  "description": "beautiful landing pages",
+  "main": "index.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start:tailwind": "cross-env NODE_ENV=development tailwindcss --postcss -i tailwind.css -o tailwind-runtime.css -w",
+    "build:tailwind": "cross-env NODE_ENV=production tailwindcss --postcss -i tailwind.css -o tailwind-build.css --minify",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "landing",
+    "pages",
+    "motion",
+    "design",
+    "websites"
+  ],
+  "author": "Paul",
+  "license": "MIT",
+  "devDependencies": {
+    "tailwindcss": "^3.4.1",
+    "vite": "^5.0.0"
   },
   "dependencies": {
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1"
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.36.0",
-    "@types/react": "^19.1.16",
-    "@types/react-dom": "^19.1.9",
-    "@vitejs/plugin-react": "^5.0.4",
-    "eslint": "^9.36.0",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-react-refresh": "^0.4.22",
-    "globals": "^16.4.0",
-    "vite": "npm:rolldown-vite@7.1.14"
-  },
-  "overrides": {
-    "vite": "npm:rolldown-vite@7.1.14"
+    "@vitejs/plugin-react": "^5.1.0",
+    "postcss": "^8.4.33",
+    "postcss-simple-vars": "^7.0.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
   }
 }
