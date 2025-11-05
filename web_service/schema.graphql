@@ -1,9 +1,56 @@
+# Noticias
 type NewsArticle {
   title: String
   description: String
   url: String
 }
 
+# Status
+type Status {
+  status: String
+  timestamp: String
+  message: String
+}
+
+# Team
+type TeamMember {
+  name: String
+  mainSkill: String
+  role: String
+  email: String
+  github: String
+  bio: String
+}
+
+# AiAdvice
+type Advice {
+  id: ID
+  advice: String
+}
+
+#Crypto
+type CryptoQuote {
+  symbol: String!
+  price: Float
+  change: Float
+  volume: Float
+}
+
+# Stocks / Acciones
+type StockQuote {
+  symbol: String!
+  name: String
+  price: Float
+  sector: String
+  industry: String
+}
+
+# Query
 type Query {
   news(country: String!): [NewsArticle]
+  status: Status
+  team: [TeamMember]
+  aiSavingsTip: Advice
+  topCryptos: [CryptoQuote!]!
+  topStocks: [StockQuote!]! 
 }
