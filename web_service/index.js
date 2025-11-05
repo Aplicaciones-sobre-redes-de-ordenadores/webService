@@ -10,9 +10,21 @@ import * as path from 'path';
 import { fileURLToPath } from 'url';
 import resolvers from './resolvers.js';
 import NoticiasService from './services/NoticiasService.js'; 
+import StatusService from './services/StatusService.js';
+import TeamService from './services/TeamService.js';
+import AiAdviceService from './services/AiAdviceService.js';
+import CryptoService from './services/CryptoService.js';
+import StockService from './services/StockService.js';
+
 
 // Inicializa el servicio de noticias para inyectarlo en el contexto
 const noticiasService = new NoticiasService();
+const statusService = new StatusService();
+const teamService = new TeamService();
+const aiAdviceService = new AiAdviceService();
+const cryptoService = new CryptoService();
+const stockService = new StockService();
+
 
 // CONFIGURACIÓN DE RUTA ABSOLUTA 
 const __filename = fileURLToPath(import.meta.url);
@@ -52,6 +64,11 @@ try {
       //context se utiliza para inyectar dependencias (servicios) en los resolvers
       context: async ({ req }) => ({
         noticiasService: noticiasService,
+        statusService: statusService,
+        teamService: teamService,
+        aiAdviceService: aiAdviceService,
+        cryptoService: cryptoService,
+        stockService: stockService,
       }),
     }),
   );
