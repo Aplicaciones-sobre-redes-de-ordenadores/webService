@@ -74,10 +74,8 @@ try {
   );
 
   // Arranca Express
-  app.listen(PORT, () => {
-    console.log(` Servidor Express y GraphQL listo en: http://localhost:${PORT}/`);
-    console.log(`Explora el Sandbox de GraphQL en: http://localhost:${PORT}/graphql`);
-  });
+  // Exporta el handler para Vercel (no abrir puerto)
+  module.exports = app;
 
 } catch (error) {
   if (error.code === 'ENOENT') {
