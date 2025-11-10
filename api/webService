@@ -1,0 +1,2 @@
+import app from '../web_service/index.js';
+export default app;
