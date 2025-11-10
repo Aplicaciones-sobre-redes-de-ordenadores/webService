@@ -73,10 +73,6 @@ try {
     }),
   );
 
-  const PUERTO = process.env.PORT || 8082;
-  app.listen(PUERTO, () => {
-    console.log(`\n Servidor listo en http://localhost:${PUERTO}/`);
-  });
 
   // Arranca Express
   // Exporta el handler para Vercel (no abrir puerto)
