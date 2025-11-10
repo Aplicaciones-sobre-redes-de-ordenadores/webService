@@ -32,6 +32,7 @@ const __dirname = path.dirname(__filename);
 const schemaPath = path.join(__dirname, 'schema.graphql'); 
 
 
+let app;
 
 try {
   const typeDefs = fs.readFileSync(schemaPath, 'utf8').trim();
@@ -50,8 +51,8 @@ try {
   await server.start();
 
   //Configura Express
-  const app = express();
-  const PORT = 8082;
+  app = express();
+  const PORT = process.env.PORT || 8080;
   
   //Aplica middlewares de Express
   app.use(cors());
@@ -59,7 +60,7 @@ try {
 
   // Monta Apollo Server como middleware en la ruta /
   app.use(
-    '/',
+    '/webServer/',
     expressMiddleware(server, {
       //context se utiliza para inyectar dependencias (servicios) en los resolvers
       context: async ({ req }) => ({
@@ -73,9 +74,14 @@ try {
     }),
   );
 
+  app.listen(PORT, () => {
+    console.log(`\n Servidor Express con Apollo GraphQL escuchando en http://localhost:${PORT}/ \n`);
+  });
+
   // Arranca Express
   // Exporta el handler para Vercel (no abrir puerto)
-  module.exports = app;
+  
+  //module.exports = app;
 
 } catch (error) {
   if (error.code === 'ENOENT') {
@@ -84,3 +90,5 @@ try {
     console.error(` Error al iniciar el servidor: ${error.message || error}`);
   }
 }
+export default app;
+
