@@ -30,24 +30,54 @@
         .mobile-menu-overlay.is-open {
             transform: translateX(0);
         }
+        .page-content {
+            animation: fadeIn 0.5s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        .faq-item.is-active .faq-answer {
+            max-height: 200px;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        .faq-icon {
+            transition: transform 0.3s ease-out;
+        }
+        .faq-item.is-active .faq-icon {
+            transform: rotate(180deg);
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 antialiased">
 
+    <!-- Header / Navbar -->
     <header class="sticky top-0 z-50 w-full bg-white/90 shadow-md backdrop-blur-sm">
         <div class="container mx-auto flex justify-between items-center py-4 px-6">
-            <h1 class="text-2xl font-bold">
+            <a href="#" class="nav-link text-2xl font-bold" data-page="home">
                 <img src="./src/assets/logo/logo2.png" 
                      alt="Pa’LaSaca Logo" 
                      class="w-40 md:w-52"
                      onerror="this.onerror=null;this.src='https://placehold.co/208x48/FDE68A/000000?text=Pa_LaSaca';">
-            </h1>
+            </a>
 
-            <nav class="hidden md:flex">
-                <ul class="flex gap-8">
-                    <li><a href="#features" class="font-medium text-gray-600 hover:text-amber-600 transition-colors duration-300">Características</a></li>
-                    <li><a href="#about" class="font-medium text-gray-600 hover:text-amber-600 transition-colors duration-300">Sobre Nosotros</a></li>
-                    <li><a href="#contact" class="font-medium text-gray-600 hover:text-amber-600 transition-colors duration-300">Contacto</a></li>
+            <!-- Navbar (Desktop) -->
+            <nav class="hidden md:flex" id="desktop-nav">
+                <ul class="flex gap-6 lg:gap-8">
+                    <li><a href="#" class="nav-link font-medium text-amber-600" data-page="home">Inicio</a></li>
+                    <li><a href="#" class="nav-link font-medium text-gray-600 hover:text-amber-600 transition-colors duration-300" data-page="features">Funciones</a></li>
+                    <li><a href="#" class="nav-link font-medium text-gray-600 hover:text-amber-600 transition-colors duration-300" data-page="videos">Videos</a></li>
+                    <li><a href="#" class="nav-link font-medium text-gray-600 hover:text-amber-600 transition-colors duration-300" data-page="faq">FAQ</a></li>
+                    <li><a href="#" class="nav-link font-medium text-gray-600 hover:text-amber-600 transition-colors duration-300" data-page="about">Sobre Nosotros</a></li>
+                    <li><a href="#" class="nav-link font-medium text-gray-600 hover:text-amber-600 transition-colors duration-300" data-page="contact">Contacto</a></li>
                 </ul>
             </nav>
 
@@ -58,108 +88,541 @@
         </div>
     </header>
 
+    <!-- Menú (Móvil) - Overlay -->
     <div id="mobile-menu-overlay" class="mobile-menu-overlay md:hidden fixed inset-0 z-40 bg-white p-6 pt-20">
-        <nav>
+        <nav id="mobile-nav">
             <ul class="flex flex-col gap-6 text-center">
-                <li><a id="nav-link-1" href="#features" class="block py-3 text-lg font-medium text-gray-700 hover:text-amber-600">Características</a></li>
-                <li><a id="nav-link-2" href="#about" class="block py-3 text-lg font-medium text-gray-700 hover:text-amber-600">Sobre Nosotros</a></li>
-                <li><a id="nav-link-3" href="#contact" class="block py-3 text-lg font-medium text-gray-700 hover:text-amber-600">Contacto</a></li>
+                <li><a href="#" class="nav-link block py-3 text-lg font-medium text-gray-700 hover:text-amber-600" data-page="home">Inicio</a></li>
+                <li><a href="#" class="nav-link block py-3 text-lg font-medium text-gray-700 hover:text-amber-600" data-page="features">Funciones</a></li>
+                <li><a href="#" class="nav-link block py-3 text-lg font-medium text-gray-700 hover:text-amber-600" data-page="pricing">Precios</a></li>
+                <li><a href="#" class="nav-link block py-3 text-lg font-medium text-gray-700 hover:text-amber-600" data-page="videos">Videos</a></li>
+                <li><a href="#" class="nav-link block py-3 text-lg font-medium text-gray-700 hover:text-amber-600" data-page="faq">FAQ</a></li>
+                <li><a href="#" class="nav-link block py-3 text-lg font-medium text-gray-700 hover:text-amber-600" data-page="about">Sobre Nosotros</a></li>
+                <li><a href="#" class="nav-link block py-3 text-lg font-medium text-gray-700 hover:text-amber-600" data-page="contact">Contacto</a></li>
             </ul>
         </nav>
     </div>
 
-    <section class="relative bg-gradient-to-r from-yellow-50 to-amber-100 pt-24 pb-20 md:pt-32 md:pb-28 overflow-hidden">
-        <div class="container mx-auto px-6">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="text-center md:text-left">
-                    <h2 class="animate-on-scroll text-4xl md:text-6xl font-extrabold text-gray-900 mb-6 leading-tight" style="transition-delay: 100ms;">
-                        Bienvenido a <span class="text-amber-600">Pa’LaSaca</span>
-                    </h2>
-                    <p class="animate-on-scroll text-lg md:text-xl text-gray-700 mb-10" style="transition-delay: 200ms;">
-                        La forma más sencilla y visual de gestionar tus finanzas y alcanzar tus metas de ahorro.
-                    </p>
-                    <a href="#features" class="animate-on-scroll bg-amber-500 text-white font-bold py-4 px-8 rounded-lg shadow-lg hover:bg-amber-600 hover:shadow-xl transition-all duration-300 transform hover:scale-105" style="transition-delay: 300ms;">
-                        Descúbrelo Ahora
-                    </a>
-                </div>
-                
-                <div class="animate-on-scroll" style="transition-delay: 400ms;">
-                    <div class="bg-[#ffbe00] w-full h-64 md:h-96 rounded-xl flex items-center justify-center shadow-xl overflow-hidden">
-                        <img src="./src/assets/capturas/movilmano.png" 
-                             alt="Teléfono con la app Pa'LaSaca" 
-                             class="w-auto h-full object-contain"
-                             onerror="this.onerror=null;this.src='https://placehold.co/300x600/FDE68A/000000?text=Error+al+cargar+imagen';">
+    <!-- Contenedor Principal de "Páginas" -->
+    <div id="page-container">
+
+        <!-- ===== PÁGINA: INICIO ===== -->
+        <main id="page-home" class="page-content">
+            <!-- Hero Section -->
+            <section class="relative bg-gradient-to-r from-yellow-50 to-amber-100 pt-24 pb-20 md:pt-32 md:pb-28 overflow-hidden">
+                <div class="container mx-auto px-6">
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div class="text-center md:text-left">
+                            <h2 class="animate-on-scroll text-4xl md:text-6xl font-extrabold text-gray-900 mb-6 leading-tight" style="transition-delay: 100ms;">
+                                Bienvenido a <span class="text-amber-600">Pa’LaSaca</span>
+                            </h2>
+                            <p class="animate-on-scroll text-lg md:text-xl text-gray-700 mb-10" style="transition-delay: 200ms;">
+                                La forma más sencilla y visual de gestionar tus finanzas y alcanzar tus metas de ahorro.
+                            </p>
+                            <a href="#" class="nav-link animate-on-scroll bg-amber-500 text-white font-bold py-4 px-8 rounded-lg shadow-lg hover:bg-amber-600 hover:shadow-xl transition-all duration-300 transform hover:scale-105" style="transition-delay: 300ms;" data-page="features">
+                                Descubre sus Funciones
+                            </a>
+                        </div>
+                        <div class="animate-on-scroll" style="transition-delay: 400ms;">
+                            <div class="bg-[#ffbe00] w-full h-64 md:h-96 rounded-xl flex items-center justify-center shadow-xl overflow-hidden">
+                                <img src="./src/assets/capturas/movilmano.png" alt="Teléfono con la app Pa'LaSaca" class="w-auto h-full object-contain" onerror="this.onerror=null;this.src='https://placehold.co/300x600/FDE68A/000000?text=Error+al+cargar+imagen';">
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
+            </section>
 
-    <section id="app-preview" class="py-20 bg-gray-50">
-        <div class="container mx-auto px-6">
-            <h3 class="animate-on-scroll text-3xl md:text-4xl font-bold text-center mb-16">
-                Un Vistazo a la App
-            </h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
-                
-                <div class="animate-on-scroll" style="transition-delay: 100ms;">
-                    <img src="./src/assets/capturas/iniciocuentas.png" 
-                         alt="Captura de inicio de Pa'LaSaca" 
-                         class="rounded-lg shadow-xl transform transition-all duration-300 hover:scale-105"
-                         onerror="this.onerror=null;this.src='https://placehold.co/300x600/94a3b8/ffffff?text=Inicio+y+Cuentas';">
+            <!-- App Preview Section -->
+            <section id="app-preview" class="py-20 bg-gray-50">
+                <div class="container mx-auto px-6">
+                    <h3 class="animate-on-scroll text-3xl md:text-4xl font-bold text-center mb-16">
+                        Un Vistazo a la App
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+                        <div class="animate-on-scroll" style="transition-delay: 100ms;">
+                            <img src="./src/assets/capturas/iniciocuentas.png" alt="Captura de inicio de Pa'LaSaca" class="rounded-lg shadow-xl transform transition-all duration-300 hover:scale-105" onerror="this.onerror=null;this.src='https://placehold.co/300x600/94a3b8/ffffff?text=Inicio+y+Cuentas';">
+                        </div>
+                        <div class="animate-on-scroll" style="transition-delay: 200ms;">
+                            <img src="./src/assets/capturas/cuenta.png" alt="Captura de movimientos de Pa'LaSaca" class="rounded-lg shadow-xl transform transition-all duration-300 hover:scale-105" onerror="this.onerror=null;this.src='https://placehold.co/300x600/94a3b8/ffffff?text=Movimientos';">
+                        </div>
+                        <div class="animate-on-scroll" style="transition-delay: 300ms;">
+                            <img src="./src/assets/capturas/ahorros.png" alt="Captura de metas de ahorro de Pa'LaSaca" class="rounded-lg shadow-xl transform transition-all duration-300 hover:scale-105" onerror="this.onerror=null;this.src='https://placehold.co/300x600/94a3b8/ffffff?text=Metas+de+Ahorro';">
+                        </div>
+                        <div class="animate-on-scroll" style="transition-delay: 400ms;">
+                            <img src="./src/assets/capturas/tucajero.png" alt="Captura de cajeros de Pa'LaSaca" class="rounded-lg shadow-xl transform transition-all duration-300 hover:scale-105" onerror="this.onerror=null;this.src='https://placehold.co/300x600/94a3b8/ffffff?text=Tu+Cajero';">
+                        </div>
+                    </div>
                 </div>
+            </section>
 
-                <div class="animate-on-scroll" style="transition-delay: 200ms;">
-                    <img src="./src/assets/capturas/cuenta.png" 
-                         alt="Captura de movimientos de Pa'LaSaca" 
-                         class="rounded-lg shadow-xl transform transition-all duration-300 hover:scale-105"
-                         onerror="this.onerror=null;this.src='https://placehold.co/300x600/94a3b8/ffffff?text=Movimientos';">
+            <!-- Reviews Section -->
+            <section id="testimonials" class="py-20 bg-white">
+                <div class="container mx-auto px-6 max-w-5xl">
+                    <h3 class="animate-on-scroll text-3xl md:text-4xl font-bold text-center mb-16">
+                        Lo que dicen nuestros usuarios (Reviews)
+                    </h3>
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="animate-on-scroll bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-100" style="transition-delay: 100ms;">
+                            <div class="flex text-yellow-400 mb-4">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"></path></svg>
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"></path></svg>
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"></path></svg>
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"></path></svg>
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"></path></svg>
+                            </div>
+                            <p class="text-gray-700 italic mb-6">"¡Increíble! Por fin una app de finanzas que entiendo. Las metas de ahorro me han ayudado a organizarme para mi viaje."</p>
+                            <p class="font-bold text-amber-600">- Ana García</p>
+                        </div>
+                        <div class="animate-on-scroll bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-100" style="transition-delay: 200ms;">
+                            <div class="flex text-yellow-400 mb-4">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"></path></svg>
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"></path></svg>
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"></path></svg>
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"></path></svg>
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"></path></svg>
+                            </div>
+                            <p class="text-gray-700 italic mb-6">"La función 'TuCajero' es una genialidad. Me ha salvado de pagar comisiones varias veces. 100% recomendada."</p>
+                            <p class="font-bold text-amber-600">- Javier López</p>
+                        </div>
+                        <div class="animate-on-scroll bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-100" style="transition-delay: 300ms;">
+                            <div class="flex text-yellow-400 mb-4">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"></path></svg>
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"></path></svg>
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"></path></svg>
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"></path></svg>
+                                <svg class="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"></path></svg>
+                            </div>
+                            <p class="text-gray-700 italic mb-6">"Sencilla, visual y va al grano. Justo lo que necesitaba para dejar de usar hojas de cálculo complicadas."</p>
+                            <p class="font-bold text-amber-600">- María Fernández</p>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="animate-on-scroll" style="transition-delay: 300ms;">
-                    <img src="./src/assets/capturas/ahorros.png" 
-                         alt="Captura de metas de ahorro de Pa'LaSaca" 
-                         class="rounded-lg shadow-xl transform transition-all duration-300 hover:scale-105"
-                         onerror="this.onerror=null;this.src='https://placehold.co/300x600/94a3b8/ffffff?text=Metas+de+Ahorro';">
+            </section>
+        </main>
+
+        <!-- ===== PÁGINA: FUNCIONES (ACTUALIZADA) ===== -->
+        <main id="page-features" class="page-content hidden">
+            <section class="py-20 bg-white">
+                <div class="container mx-auto px-6">
+                    <h2 class="text-4xl md:text-5xl font-extrabold text-center text-gray-900 mb-16">
+                        Funciones Pensadas para Ti
+                    </h2>
+
+                    <!-- Feature 1: Metas de Ahorro -->
+                    <div class="grid md:grid-cols-2 gap-12 items-center mb-20">
+                        <div class="animate-on-scroll">
+                            <h3 class="text-3xl font-bold text-amber-600 mb-4">Metas de Ahorro</h3>
+                            <p class="text-lg text-gray-700 leading-relaxed">Crea objetivos de ahorro visuales para todo lo que te importa. Define un nombre, una cantidad y una fecha límite, y observa cómo tu progreso crece. Ya sea para un viaje, un gadget nuevo o un fondo de emergencia, te ayudamos a conseguirlo.</p>
+                        </div>
+                        <div class="animate-on-scroll" style="transition-delay: 100ms;">
+                            <img src="./src/assets/capturas/ahorros.png" alt="Captura de Metas de Ahorro" class="rounded-lg shadow-xl mx-auto" onerror="this.onerror=null;this.src='https://placehold.co/300x600/94a3b8/ffffff?text=Metas+de+Ahorro';">
+                        </div>
+                    </div>
+
+                    <!-- Feature 2: Control de Gastos -->
+                    <div class="grid md:grid-cols-2 gap-12 items-center mb-20">
+                        <div class="animate-on-scroll md:order-2">
+                            <h3 class="text-3xl font-bold text-amber-600 mb-4">Control de Gastos</h3>
+                            <p class="text-lg text-gray-700 leading-relaxed">Registra tus ingresos y gastos en segundos. Clasifícalos por categorías (comida, transporte, ocio...) para entender exactamente a dónde se va tu dinero. Identifica gastos fijos y variables para optimizar tu presupuesto mensual.</p>
+                        </div>
+                        <div class="animate-on-scroll md:order-1" style="transition-delay: 100ms;">
+                            <img src="./src/assets/capturas/cuenta.png" alt="Captura de Control de Gastos" class="rounded-lg shadow-xl mx-auto" onerror="this.onerror=null;this.src='https://placehold.co/300x600/94a3b8/ffffff?text=Movimientos';">
+                        </div>
+                    </div>
+
+                    
+                    <!-- Feature 4: TuCajero -->
+                    <div class="grid md:grid-cols-2 gap-12 items-center mb-20">
+                        <div class="animate-on-scroll">
+                            <h3 class="text-3xl font-bold text-amber-600 mb-4">TuCajero</h3>
+                            <p class="text-lg text-gray-700 leading-relaxed">¿Cansado de pagar comisiones por sacar dinero? Con nuestra función 'TuCajero', puedes buscar en un mapa los cajeros automáticos de tu banco o de bancos asociados que no te cobrarán comisiones. Filtra por banco, distancia y disponibilidad.</p>
+                        </div>
+                        <div class="animate-on-scroll" style="transition-delay: 100ms;">
+                            <img src="./src/assets/capturas/tucajero.png" alt="Captura de TuCajero" class="rounded-lg shadow-xl mx-auto" onerror="this.onerror=null;this.src='https://placehold.co/300x600/94a3b8/ffffff?text=Tu+Cajero';">
+                        </div>
+                    </div>
+
+                    <!-- Feature 5: Cuentas Claras -->
+                    <div class="grid md:grid-cols-2 gap-12 items-center mb-20">
+                        <div class="animate-on-scroll md:order-2">
+                            <h3 class="text-3xl font-bold text-amber-600 mb-4">Cuentas Claras</h3>
+                            <p class="text-lg text-gray-700 leading-relaxed">Organiza tu dinero en diferentes "cuentas" o "sobres" virtuales (Ej. Ahorros, Efectivo, Nómina). Transfiere dinero entre ellas fácilmente y ten una visión clara de tu capital total y de cuánto tienes disponible para cada propósito.</p>
+                        </div>
+                        <div class="animate-on-scroll md:order-1" style="transition-delay: 100ms;">
+                            <img src="./src/assets/capturas/iniciocuentas.png" alt="Captura de Cuentas" class="rounded-lg shadow-xl mx-auto" onerror="this.onerror=null;this.src='https://placehold.co/300x600/94a3b8/ffffff?text=Inicio+y+Cuentas';">
+                        </div>
+                    </div>
+                    
+                    <!-- Feature 6: Gestión de Pagos -->
+                    <div class="grid md:grid-cols-2 gap-12 items-center mb-20">
+                        <div class="animate-on-scroll">
+                            <h3 class="text-3xl font-bold text-amber-600 mb-4">Gestión de Pagos y Suscripciones</h3>
+                            <p class="text-lg text-gray-700 leading-relaxed">¿No sabes cuánto gastas en suscripciones? Registra tus pagos recurrentes (Netflix, gimnasio, Amazon Prime...) y deudas. Te avisaremos antes de que venzan para que nunca te lleves una sorpresa.</p>
+                        </div>
+                        <div class="animate-on-scroll" style="transition-delay: 100ms;">
+                            <img src="./src/assets/capturas/pagos.png" alt="Captura de Gestión de Pagos" class="rounded-lg shadow-xl mx-auto" onerror="this.onerror=null;this.src='https://placehold.co/300x600/94a3b8/ffffff?text=Pagos';">
+                        </div>
+                    </div>
+
+                    <!-- Feature 7: Criptomonedas  -->
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div class="animate-on-scroll md:order-2">
+                            <h3 class="text-3xl font-bold text-amber-600 mb-4">Seguimiento de Cripto</h3>
+                            <p class="text-lg text-gray-700 leading-relaxed">Para los que van un paso más allá. Conecta tus wallets en criptomonedas para ver su valor actualizado y tu rentabilidad, todo en un mismo lugar.</p>
+                        </div>
+                        <div class="animate-on-scroll md:order-1" style="transition-delay: 100ms;">
+                            <img src="./src/assets/capturas/crytos.png" alt="Captura de Criptomonedas" class="rounded-lg shadow-xl mx-auto" onerror="this.onerror=null;this.src='https://placehold.co/300x600/94a3b8/ffffff?text=Cripto';">
+                        </div>
+                    </div>
+                    <!-- Feature 8: Stocks  -->
+                     <div class="grid md:grid-cols-2 gap-12 items-center mb-20">
+                        <div class="animate-on-scroll">
+                            <h3 class="text-3xl font-bold text-amber-600 mb-4">Seguimiento de Stocks</h3>
+                            <p class="text-lg text-gray-700 leading-relaxed">Para los que van un paso más allá. Introduce manualmente tus inversiones en  acciones para ver su valor actualizado y tu rentabilidad, todo en un mismo lugar.</p>
+                        </div>
+                        <div class="animate-on-scroll" style="transition-delay: 100ms;">
+                            <img src="./src/assets/capturas/stocks.png" alt="Captura de Stocks" class="rounded-lg shadow-xl mx-auto" onerror="this.onerror=null;this.src='https://placehold.co/300x600/94a3b8/ffffff?text=Stocks';">
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="animate-on-scroll" style="transition-delay: 400ms;">
-                    <img src="./src/assets/capturas/tucajero.png" 
-                         alt="Captura de cajeros de Pa'LaSaca" 
-                         class="rounded-lg shadow-xl transform transition-all duration-300 hover:scale-105"
-                         onerror="this.onerror=null;this.src='https://placehold.co/300x600/94a3b8/ffffff?text=Tu+Cajero';">
+            </section>
+        </main>
+
+
+        <!-- ===== PÁGINA: VIDEOS  ===== -->
+        <main id="page-videos" class="page-content hidden">
+            <section class="py-20 bg-white">
+                <div class="container mx-auto px-6 max-w-5xl">
+                    <h2 class="text-4xl md:text-5xl font-extrabold text-center text-gray-900 mb-16">
+                        Descubre la App en Acción
+                    </h2>
+                    <p class="text-center text-lg text-gray-700 mb-16 -mt-10">
+                        Aprende a sacarle el máximo partido a Pa'LaSaca con estos breves tutoriales.
+                    </p>
+
+                    <div class="grid md:grid-cols-2 gap-10">
+                        <!-- Video 1 -->
+                        <div class="animate-on-scroll">
+                            <div class="aspect-video bg-gray-200 rounded-xl shadow-lg mb-4 overflow-hidden">
+                                <!-- Reemplaza 'TU_VIDEO_1.mp4' con el nombre de tu archivo -->
+                                <video class="w-full h-full" controls poster="https://placehold.co/1920x1080/FDE68A/000000?text=Video+1:+Cómo+Empezar">
+                                    <source src="./src/assets/videos/crearcuenta.mp4" type="video/mp4">
+                                    Tu navegador no soporta el tag de video.
+                                </video>
+                            </div>
+                            <h3 class="text-xl font-bold mt-4 mb-2">1. Cómo Empezar en Pa'LaSaca</h3>
+                            <p class="text-gray-700">Configura tu cuenta y crea tus primeros sobres de dinero en menos de 2 minutos.</p>
+                        </div>
+                        
+                        <!-- Video 2 -->
+                        <div class="animate-on-scroll" style="transition-delay: 100ms;">
+                            <div class="aspect-video bg-gray-200 rounded-xl shadow-lg mb-4 overflow-hidden">
+                                <video class="w-full h-full" controls poster="https://placehold.co/1920x1080/94a3b8/ffffff?text=Video+2:+Metas+de+Ahorro">
+                                    <source src="./src/assets/videos/meta.mp4" type="video/mp4">
+                                    Tu navegador no soporta el tag de video.
+                                </video>
+                            </div>
+                            <h3 class="text-xl font-bold mt-4 mb-2">2. Creando Metas de Ahorro</h3>
+                            <p class="text-gray-700">Aprende a usar la función estrella para planificar tu próximo viaje, gadget o capricho.</p>
+                        </div>
+                        
+                        <!-- Video 3 -->
+                        <div class="animate-on-scroll" style="transition-delay: 200ms;">
+                            <div class="aspect-video bg-gray-200 rounded-xl shadow-lg mb-4 overflow-hidden">
+                                <video class="w-full h-full" controls poster="https://placehold.co/1920x1080/94a3b8/ffffff?text=Video+3:+Función+TuCajero">
+                                    <source src="./src/assets/videos/tucajero.mp4" type="video/mp4">
+                                    Tu navegador no soporta el tag de video.
+                                </video>
+                            </div>
+                            <h3 class="text-xl font-bold mt-4 mb-2">3. Ahorra Comisiones con TuCajero</h3>
+                            <p class="text-gray-700">Un tour completo por la función 'TuCajero' para que no vuelvas a pagar una comisión.</p>
+                        </div>
+
+                        <!-- Video 4 -->
+                        <div class="animate-on-scroll" style="transition-delay: 300ms;">
+                            <div class="aspect-video bg-gray-200 rounded-xl shadow-lg mb-4 overflow-hidden">
+                                <video class="w-full h-full" controls poster="https://placehold.co/1920x1080/94a3b8/ffffff?text=Video+4:+Gestión+de+Pagos">
+                                    <source src="./src/assets/videos/pagos.mp4" type="video/mp4">
+                                    Tu navegador no soporta el tag de video.
+                                </video>
+                            </div>
+                            <h3 class="text-xl font-bold mt-4 mb-2">4. Gestionando Pagos y Suscripciones</h3>
+                            <p class="text-gray-700">Aprende a marcar gastos como "fijos" y registrar suscripciones para tener una mejor previsión.</p>
+                        </div>
+
+                          <!-- Video 5 -->
+                        <div class="animate-on-scroll" style="transition-delay: 300ms;">
+                            <div class="aspect-video bg-gray-200 rounded-xl shadow-lg mb-4 overflow-hidden">
+                                <video class="w-full h-full" controls poster="https://placehold.co/1920x1080/94a3b8/ffffff?text=Video+5:+Crear+Metas">
+                                    <source src="./src/assets/videos/meta.mp4" type="video/mp4">
+                                    Tu navegador no soporta el tag de video.
+                                </video>
+                            </div>
+                            <h3 class="text-xl font-bold mt-4 mb-2">5. Crea Metas y animate a ahorrar</h3>
+                            <p class="text-gray-700">Aprende a crear metas para cumplir tus objetivos de ahorros y poder comprarlos!</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
+            </section>
+        </main>
 
-    <section id="about" class="py-20 bg-white">
-        <div class="container mx-auto px-6 max-w-4xl text-center">
-            <h3 class="animate-on-scroll text-3xl md:text-4xl font-bold mb-6">Sobre Nosotros</h3>
-            <p class="animate-on-scroll text-lg text-gray-700 leading-relaxed" style="transition-delay: 100ms;">
-                Pa’LaSaca nació de una idea simple: la gestión financiera no debería ser complicada. Somos un equipo apasionado por la tecnología y las finanzas personales, y nuestra misión es darte las herramientas para que tomes el control de tu dinero de forma intuitiva y, por qué no, divertida.
-            </p>
-        </div>
-    </section>
+        <!-- ===== PÁGINA: FAQ ===== -->
+        <main id="page-faq" class="page-content hidden">
+            <section class="py-20 bg-gray-50">
+                <div class="container mx-auto px-6 max-w-3xl">
+                    <h2 class="text-4xl md:text-5xl font-extrabold text-center text-gray-900 mb-16">
+                        Preguntas Frecuentes
+                    </h2>
+                    <div class="space-y-6">
+                        
+                        <div class="faq-item bg-white border border-gray-200 rounded-lg overflow-hidden">
+                            <button class="faq-question w-full flex justify-between items-center text-left p-6">
+                                <span class="text-lg font-semibold text-gray-800">¿Qué tan segura está mi información?</span>
+                                <svg class="faq-icon w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                            <div class="faq-answer px-6 text-gray-700 leading-relaxed">
+                                Tu seguridad es nuestra máxima prioridad. Todos tus datos se almacenan localmente en tu dispositivo. Nosotros no tenemos acceso a tu información financiera, lo que garantiza total privacidad.
+                            </div>
+                        </div>
 
-    <section id="contact" class="py-20 bg-gray-50">
-        <div class="container mx-auto px-6 max-w-2xl text-center">
-            <h3 class="animate-on-scroll text-3xl md:text-4xl font-bold mb-6">Ponte en Contacto</h3>
-            <p class="animate-on-scroll text-lg text-gray-700 mb-10" style="transition-delay: 100ms;">
-                ¿Tienes alguna pregunta, sugerencia o simplemente quieres saludar? Escríbenos y te responderemos lo antes posible.
-            </p>
-            
-            <form class="animate-on-scroll flex flex-col gap-5" style="transition-delay: 200ms;">
-                <input type="text" placeholder="Tu Nombre" class="border border-gray-300 rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-300">
-                <input type="email" placeholder="Tu Correo Electrónico" class="border border-gray-300 rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-300">
-                <textarea placeholder="Tu Mensaje" rows="5" class="border border-gray-300 rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-300"></textarea>
-                <button type="submit" class="bg-amber-500 text-white font-bold py-4 px-8 rounded-lg shadow-lg hover:bg-amber-600 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-                    Enviar Mensaje
-                </button>
-            </form>
-        </div>
-    </section>
+                        <div class="faq-item bg-white border border-gray-200 rounded-lg overflow-hidden">
+                            <button class="faq-question w-full flex justify-between items-center text-left p-6">
+                                <span class="text-lg font-semibold text-gray-800">¿Cómo funciona exactamente 'TuCajero'?</span>
+                                <svg class="faq-icon w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                            <div class="faq-answer px-6 text-gray-700 leading-relaxed">
+                                'TuCajero' utiliza la geolocalización de tu móvil para encontrar cajeros cercanos. Almacenamos una base de datos de las principales entidades bancarias y sus acuerdos para mostrarte en verde aquellos cajeros donde puedes retirar efectivo sin comisiones, según el banco que hayas configurado.
+                            </div>
+                        </div>
 
+                        <div class="faq-item bg-white border border-gray-200 rounded-lg overflow-hidden">
+                            <button class="faq-question w-full flex justify-between items-center text-left p-6">
+                                <span class="text-lg font-semibold text-gray-800">¿Puedo usar la app en varios dispositivos?</span>
+                                <svg class="faq-icon w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                            <div class="faq-answer px-6 text-gray-700 leading-relaxed">
+                                Actualmente, la versión 'Gratis' almacena todos los datos en tu dispositivo. La futura versión 'Pro' incluirá sincronización en la nube para que puedas acceder a tu información desde cualquier lugar.
+                            </div>
+                        </div>
+
+                        <div class="faq-item bg-white border border-gray-200 rounded-lg overflow-hidden">
+                            <button class="faq-question w-full flex justify-between items-center text-left p-6">
+                                <span class="text-lg font-semibold text-gray-800">¿Qué es la sincronización bancaria?</span>
+                                <svg class="faq-icon w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                            <div class="faq-answer px-6 text-gray-700 leading-relaxed">
+                                Será una función opcional que te permitirá conectar tu cuenta bancaria (de forma segura) para que tus movimientos se registren automáticamente en Pa'LaSaca, ahorrándote el trabajo de introducirlos manualmente.
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- ===== PÁGINA: SOBRE NOSOTROS (ACTUALIZADA) ===== -->
+        <main id="page-about" class="page-content hidden">
+            <section class="py-20 bg-gray-50">
+                <div class="container mx-auto px-6 max-w-4xl text-center">
+                    <h2 class="animate-on-scroll text-4xl md:text-5xl font-extrabold text-gray-900 mb-6">Sobre Nosotros</h2>
+                    <p class="animate-on-scroll text-lg text-gray-700 leading-relaxed mb-12" style="transition-delay: 100ms;">
+                        Pa’LaSaca nació de una idea simple: la gestión financiera no debería ser complicada. Somos un equipo apasionado por la tecnología y las finanzas personales, y nuestra misión es darte las herramientas para que tomes el control de tu dinero de forma intuitiva y, por qué no, divertida.
+                    </p>
+                    
+                    <div class="bg-white p-10 rounded-xl shadow-lg border border-gray-100">
+                        <h3 class="text-3xl font-bold text-amber-600 mb-6">Nuestra Misión</h3>
+                        <p class="text-gray-700 leading-relaxed">
+                            Creemos que todo el mundo merece tener claridad financiera. Ya sea que estés ahorrando para unas vacaciones, gestionando tus gastos diarios o planificando tu futuro, nuestra app está diseñada para ser tu compañera de confianza, eliminando el estrés y la confusión de la gestión del dinero.
+                        </p>
+                    </div>
+
+                    <!-- NUESTRO EQUIPO (ACTUALIZADO) -->
+                    <div class="mt-20">
+                        <h3 class="animate-on-scroll text-3xl font-bold text-center mb-12">Nuestro Equipo</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                            
+                            <!-- Miembro 1: Saúl Alén -->
+                            <div class="animate-on-scroll text-center bg-white p-6 rounded-xl shadow-lg border border-gray-100" style="transition-delay: 100ms;">
+                                <div class="w-32 h-32 rounded-full bg-gray-200 mx-auto mb-4 flex items-center justify-center shadow-lg overflow-hidden">
+                                    <img src="./src/assets/team/saul_alen.png" alt="Foto de Saúl Alén" class="rounded-full w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/128x128/FDE68A/000000?text=SA';">
+                                </div>
+                                <h4 class="text-xl font-bold text-gray-900">Saúl Alén</h4>
+                                <p class="text-amber-600 font-medium text-sm">Desarrollador y Scrum Master a tiempo partido</p>
+                                <p class="text-gray-700 mt-3 text-sm italic">"Apasionado del intercambio de información y servicios web"</p>
+                                <div class="flex justify-center gap-4 mt-4">
+                                    <a href="mailto:saulalen@gmail.com" class="text-gray-500 hover:text-amber-600" aria-label="Email">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 10.798l7.997-4.914A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.116l-8 4.914-8-4.914V16a2 2 0 002 2h12a2 2 0 002-2V8.116z"></path></svg>
+                                    </a>
+                                    <a href="https://github.com/alen.146325" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-amber-600" aria-label="Github">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 0C4.477 0 0 4.477 0 10c0 4.418 2.865 8.165 6.839 9.489.5.092.682-.217.682-.483 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.03-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.026 2.747-1.026.546 1.379.202 2.398.1 2.65.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.003 10.003 0 0020 10C20 4.477 15.523 0 10 0z" clip-rule="evenodd"></path></svg>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <!-- Miembro 2: Israel Hualde -->
+                            <div class="animate-on-scroll text-center bg-white p-6 rounded-xl shadow-lg border border-gray-100" style="transition-delay: 200ms;">
+                                <div class="w-32 h-32 rounded-full bg-gray-200 mx-auto mb-4 flex items-center justify-center shadow-lg overflow-hidden">
+                                    <img src="./src/assets/team/israel_hualde.png" alt="Foto de Israel Hualde" class="rounded-full w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/128x128/94a3b8/ffffff?text=IH';">
+                                </div>
+                                <h4 class="text-xl font-bold text-gray-900">Israel Hualde</h4>
+                                <p class="text-amber-600 font-medium text-sm">Diseñador y desarrollador</p>
+                                <p class="text-gray-700 mt-3 text-sm italic">"Enamorado del diseño software, como ídolo Oscar Ardaiz"</p>
+                                <div class="flex justify-center gap-4 mt-4">
+                                    <a href="mailto:israelhuro@gmail.com" class="text-gray-500 hover:text-amber-600" aria-label="Email">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 10.798l7.997-4.914A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.116l-8 4.914-8-4.914V16a2 2 0 002 2h12a2 2 0 002-2V8.116z"></path></svg>
+                                    </a>
+                                    <a href="https://github.com/israelhuro" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-amber-600" aria-label="Github">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 0C4.477 0 0 4.477 0 10c0 4.418 2.865 8.165 6.839 9.489.5.092.682-.217.682-.483 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.03-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.026 2.747-1.026.546 1.379.202 2.398.1 2.65.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.003 10.003 0 0020 10C20 4.477 15.523 0 10 0z" clip-rule="evenodd"></path></svg>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <!-- Miembro 3: Eva Herrero -->
+                            <div class="animate-on-scroll text-center bg-white p-6 rounded-xl shadow-lg border border-gray-100" style="transition-delay: 300ms;">
+                                <div class="w-32 h-32 rounded-full bg-gray-200 mx-auto mb-4 flex items-center justify-center shadow-lg overflow-hidden">
+                                    <img src="./src/assets/team/eva_herrero.png" alt="Foto de Eva Herrero" class="rounded-full w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/128x128/94a3b8/ffffff?text=EH';">
+                                </div>
+                                <h4 class="text-xl font-bold text-gray-900">Eva Herrero</h4>
+                                <p class="text-amber-600 font-medium text-sm">Desarrollador</p>
+                                <p class="text-gray-700 mt-3 text-sm italic">"Pasión por POSTMAN y endpoints"</p>
+                                <div class="flex justify-center gap-4 mt-4">
+                                    <a href="mailto:evaherrero@gmail.com" class="text-gray-500 hover:text-amber-600" aria-label="Email">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 10.798l7.997-4.914A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.116l-8 4.914-8-4.914V16a2 2 0 002 2h12a2 2 0 002-2V8.116z"></path></svg>
+                                    </a>
+                                    <a href="https://github.com/evaherrero" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-amber-600" aria-label="Github">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 0C4.477 0 0 4.477 0 10c0 4.418 2.865 8.165 6.839 9.489.5.092.682-.217.682-.483 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.03-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.026 2.747-1.026.546 1.379.202 2.398.1 2.65.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.003 10.003 0 0020 10C20 4.477 15.523 0 10 0z" clip-rule="evenodd"></path></svg>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Miembro 4: Markel Alvarez -->
+                            <div class="animate-on-scroll text-center bg-white p-6 rounded-xl shadow-lg border border-gray-100" style="transition-delay: 400ms;">
+                                <div class="w-32 h-32 rounded-full bg-gray-200 mx-auto mb-4 flex items-center justify-center shadow-lg overflow-hidden">
+                                    <img src="./src/assets/team/markel_alvarez.png" alt="Foto de Markel Alvarez" class="rounded-full w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/128x128/94a3b8/ffffff?text=MA';">
+                                </div>
+                                <h4 class="text-xl font-bold text-gray-900">Markel Alvarez</h4>
+                                <p class="text-amber-600 font-medium text-sm">Desarrollador</p>
+                                <p class="text-gray-700 mt-3 text-sm italic">"Master en bases de datos por la universidad de Murcia 2024"</p>
+                                <div class="flex justify-center gap-4 mt-4">
+                                    <a href="mailto:alvarezalonso@gmail.com" class="text-gray-500 hover:text-amber-600" aria-label="Email">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 10.798l7.997-4.914A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.116l-8 4.914-8-4.914V16a2 2 0 002 2h12a2 2 0 002-2V8.116z"></path></svg>
+                                    </a>
+                                    <a href="https://github.com/108M" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-amber-600" aria-label="Github">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 0C4.477 0 0 4.477 0 10c0 4.418 2.865 8.165 6.839 9.489.5.092.682-.217.682-.483 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.03-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.026 2.747-1.026.546 1.379.202 2.398.1 2.65.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.003 10.003 0 0020 10C20 4.477 15.523 0 10 0z" clip-rule="evenodd"></path></svg>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Miembro 5: Adrian Juarez -->
+                            <div class="animate-on-scroll text-center bg-white p-6 rounded-xl shadow-lg border border-gray-100" style="transition-delay: 100ms;">
+                                <div class="w-32 h-32 rounded-full bg-gray-200 mx-auto mb-4 flex items-center justify-center shadow-lg overflow-hidden">
+                                    <img src="./src/assets/team/adrian_juarez.png" alt="Foto de Adrian Juarez" class="rounded-full w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/128x128/94a3b8/ffffff?text=AJ';">
+                                </div>
+                                <h4 class="text-xl font-bold text-gray-900">Adrian Juarez</h4>
+                                <p class="text-amber-600 font-medium text-sm">Desarrollador</p>
+                                <p class="text-gray-700 mt-3 text-sm italic">"Desde 2021 haciendo diseños para apps de talla nacional"</p>
+                                <div class="flex justify-center gap-4 mt-4">
+                                    <a href="mailto:aajj2003@gmail.com" class="text-gray-500 hover:text-amber-600" aria-label="Email">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 10.798l7.997-4.914A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.116l-8 4.914-8-4.914V16a2 2 0 002 2h12a2 2 0 002-2V8.116z"></path></svg>
+                                    </a>
+                                    <a href="https://github.com/juarez33" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-amber-600" aria-label="Github">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 0C4.477 0 0 4.477 0 10c0 4.418 2.865 8.165 6.839 9.489.5.092.682-.217.682-.483 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.03-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.026 2.747-1.026.546 1.379.202 2.398.1 2.65.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.003 10.003 0 0020 10C20 4.477 15.523 0 10 0z" clip-rule="evenodd"></path></svg>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Miembro 6: Hajar Boukhik -->
+                            <div class="animate-on-scroll text-center bg-white p-6 rounded-xl shadow-lg border border-gray-100" style="transition-delay: 200ms;">
+                                <div class="w-32 h-32 rounded-full bg-gray-200 mx-auto mb-4 flex items-center justify-center shadow-lg overflow-hidden">
+                                    <img src="./src/assets/team/hajar_boukhik.png" alt="Foto de Hajar Boukhik" class="rounded-full w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/128x128/94a3b8/ffffff?text=HB';">
+                                </div>
+                                <h4 class="text-xl font-bold text-gray-900">Hajar Boukhik</h4>
+                                <p class="text-amber-600 font-medium text-sm">Desarrollador</p>
+                                <p class="text-gray-700 mt-3 text-sm italic">"Apasionado de back4app y bases de datos mySQL"</p>
+                                <div class="flex justify-center gap-4 mt-4">
+                                    <a href="mailto:hajarboukhlik@gmail.com" class="text-gray-500 hover:text-amber-600" aria-label="Email">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 10.798l7.997-4.914A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.116l-8 4.914-8-4.914V16a2 2 0 002 2h12a2 2 0 002-2V8.116z"></path></svg>
+                                    </a>
+                                    <a href="https://github.com/hajarboukhlik5" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-amber-600" aria-label="Github">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 0C4.477 0 0 4.477 0 10c0 4.418 2.865 8.165 6.839 9.489.5.092.682-.217.682-.483 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.03-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.026 2.747-1.026.546 1.379.202 2.398.1 2.65.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.003 10.003 0 0020 10C20 4.477 15.523 0 10 0z" clip-rule="evenodd"></path></svg>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Miembro 7: Artem Pidlubnyy -->
+                            <div class="animate-on-scroll text-center bg-white p-6 rounded-xl shadow-lg border border-gray-100" style="transition-delay: 300ms;">
+                                <div class="w-32 h-32 rounded-full bg-gray-200 mx-auto mb-4 flex items-center justify-center shadow-lg overflow-hidden">
+                                    <img src="./src/assets/team/artem_pidlubnyy.png" alt="Foto de Artem Pidlubnyy" class="rounded-full w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/128x128/94a3b8/ffffff?text=AP';">
+                                </div>
+                                <h4 class="text-xl font-bold text-gray-900">Artem Pidlubnyy</h4>
+                                <p class="text-amber-600 font-medium text-sm">Desarrollador</p>
+                                <p class="text-gray-700 mt-3 text-sm italic">"Implemento Chatbots desde la salida de la API de chatGPT"</p>
+                                <div class="flex justify-center gap-4 mt-4">
+                                    <a href="mailto:saulalen@gmail.com" class="text-gray-500 hover:text-amber-600" aria-label="Email">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 10.798l7.997-4.914A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.116l-8 4.914-8-4.914V16a2 2 0 002 2h12a2 2 0 002-2V8.116z"></path></svg>
+                                    </a>
+                                    <a href="https://github.com/alen.146325" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-amber-600" aria-label="Github">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 0C4.477 0 0 4.477 0 10c0 4.418 2.865 8.165 6.839 9.489.5.092.682-.217.682-.483 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.03-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.026 2.747-1.026.546 1.379.202 2.398.1 2.65.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.003 10.003 0 0020 10C20 4.477 15.523 0 10 0z" clip-rule="evenodd"></path></svg>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- NUESTRA TECNOLOGÍA -->
+                    <div class="mt-20">
+                        <h3 class="animate-on-scroll text-3xl font-bold text-center mb-12">Nuestra Tecnología</h3>
+                        <div class="bg-white p-10 rounded-xl shadow-lg border border-gray-100">
+                            <p class="text-center text-gray-700 mb-8">Construimos Pa'LaSaca con tecnologías modernas, fiables y escalables para asegurar que tu experiencia sea rápida y segura.</p>
+                            <div class="flex flex-wrap justify-center gap-x-8 gap-y-6">
+                                <div class="text-center p-3">
+                                    <p class="text-lg font-bold text-gray-900">Flutter</p>
+                                    <p class="text-gray-600">Para una app nativa y fluida.</p>
+                                </div>
+                                <div class="text-center p-3">
+                                    <p class="text-lg font-bold text-gray-900">Firebase</p>
+                                    <p class="text-gray-600">Para datos seguros (en el plan Pro).</p>
+                                </div>
+                                <div class="text-center p-3">
+                                    <p class="text-lg font-bold text-gray-900">Google Maps API</p>
+                                    <p class="text-gray-600">Potencia la función 'TuCajero'.</p>
+                                </div>
+                                <div class="text-center p-3">
+                                    <p class="text-lg font-bold text-gray-900">Node.js</p>
+                                    <p class="text-gray-600">Para nuestra lógica de servidor.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- ===== PÁGINA: CONTACTO ===== -->
+        <main id="page-contact" class="page-content hidden">
+            <section class="py-20 bg-white">
+                <div class="container mx-auto px-6 max-w-2xl text-center">
+                    <h2 class="animate-on-scroll text-4xl md:text-5xl font-extrabold text-gray-900 mb-6">Ponte en Contacto</h2>
+                    <p class="animate-on-scroll text-lg text-gray-700 mb-10" style="transition-delay: 100ms;">
+                        ¿Tienes alguna pregunta, sugerencia o simplemente quieres saludar? Escríbenos y te responderemos lo antes posible.
+                    </p>
+                    
+                    <form class="animate-on-scroll flex flex-col gap-5" style="transition-delay: 200ms;">
+                        <input type="text" placeholder="Tu Nombre" class="border border-gray-300 rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-300">
+                        <input type="email" placeholder="Tu Correo Electrónico" class="border border-gray-300 rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-300">
+                        <textarea placeholder="Tu Mensaje" rows="5" class="border border-gray-300 rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-300"></textarea>
+                        <button type="submit" class="bg-amber-500 text-white font-bold py-4 px-8 rounded-lg shadow-lg hover:bg-amber-600 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                            Enviar Mensaje
+                        </button>
+                    </form>
+                </div>
+            </section>
+        </main>
+
+    </div>
+
+    <!-- Footer -->
     <footer class="bg-gray-800 text-gray-300 py-16">
         <div class="container mx-auto px-6 text-center">
             <div class="flex justify-center mb-6">
@@ -201,27 +664,75 @@
                 threshold: 0.1
             });
 
-            const targets = document.querySelectorAll('.animate-on-scroll');
-            targets.forEach(target => {
-                observer.observe(target);
-            });
+            function observeElements() {
+                const targets = document.querySelectorAll('.animate-on-scroll');
+                targets.forEach(target => {
+                    observer.observe(target);
+                });
+            }
+            observeElements(); 
 
+            const pageContainer = document.getElementById('page-container');
+            const allPages = pageContainer.querySelectorAll('.page-content');
+            const allNavLinks = document.querySelectorAll('.nav-link');
+            const desktopNavLinks = document.querySelectorAll('#desktop-nav .nav-link');
+            const mobileNavLinks = document.querySelectorAll('#mobile-nav .nav-link');
             const menuButton = document.getElementById('mobile-menu-button');
             const menuOverlay = document.getElementById('mobile-menu-overlay');
-            const navLinks = [
-                document.getElementById('nav-link-1'),
-                document.getElementById('nav-link-2'),
-                document.getElementById('nav-link-3')
-            ];
 
-            function toggleMenu() {
-                menuOverlay.classList.toggle('is-open');
+            function pageSwitcher(pageId) {
+                allPages.forEach(page => {
+                    page.classList.add('hidden');
+                });
+
+                const activePage = document.getElementById(`page-${pageId}`);
+                if (activePage) {
+                    activePage.classList.remove('hidden');
+                    window.scrollTo(0, 0); 
+                    
+                    observer.disconnect();
+                    observeElements();
+                }
+
+                allNavLinks.forEach(link => {
+                    link.classList.remove('text-amber-600');
+                    link.classList.add('text-gray-600');
+                    if (link.dataset.page === pageId) {
+                        link.classList.add('text-amber-600');
+                        link.classList.remove('text-gray-600');
+                    }
+                });
+
+                const logoLink = document.querySelector('header .nav-link');
+                if (pageId === 'home') {
+                    logoLink.classList.add('text-amber-600');
+                } else {
+                    logoLink.classList.remove('text-amber-600');
+                }
+
+                menuOverlay.classList.remove('is-open');
             }
 
-            menuButton.addEventListener('click', toggleMenu);
+            allNavLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const pageId = this.dataset.page;
+                    if (pageId) {
+                        pageSwitcher(pageId);
+                    }
+                });
+            });
 
-            navLinks.forEach(link => {
-                link.addEventListener('click', toggleMenu);
+            menuButton.addEventListener('click', function() {
+                menuOverlay.classList.toggle('is-open');
+            });
+
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    item.classList.toggle('is-active');
+                });
             });
 
         });
@@ -229,4 +740,3 @@
 
 </body>
 </html>
-
